@@ -35,11 +35,7 @@ function Main() {
   return (
     <main className="main">
       <Header />
-      {!searchTerm ? (
-        <p className="placeholder">
-          Please input search
-        </p>
-      ) : (
+      {searchTerm && (
         <InfiniteScroll
           dataList={data}
           fetchMore={fetchMore}

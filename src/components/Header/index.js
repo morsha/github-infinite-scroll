@@ -34,6 +34,7 @@ function Header() {
       <input
         type="text"
         className="search-input"
+        placeholder="Input Search Words"
         value={typed}
         onChange={(e) => {
           setTyped(e.target.value || '');
