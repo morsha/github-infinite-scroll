@@ -13,7 +13,7 @@ function App() {
         <Route path="/:searchTerm">
           <Main />
         </Route>
-        <Route path>
+        <Route>
           <Main />
         </Route>
       </Switch>

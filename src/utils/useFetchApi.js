@@ -44,7 +44,6 @@ function useFetchApi(url, searchTerm) {
 
       return apiData;
     } catch (e) {
-      console.log(e);
       setError(e);
 
       return null;
