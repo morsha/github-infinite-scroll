@@ -16,14 +16,14 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 src\
 |\
 |--components\
-|。。|\
-|。。|--Header\
-|。。|--InfiniteScroll\
-|。。|--LoadingSpinner\
+|  |\
+|  |--Header\
+|  |--InfiniteScroll\
+|  |--LoadingSpinner\
 |\
 |--utils\
-。。|--fetchGithubApi\
-。。|--useFetchApi\
+  |--fetchGithubApi\
+  |--useFetchApi\
 
 ### `Demo`
 
@@ -49,6 +49,6 @@ For api, we use a custom hook mocking Apollo GraphQL's useQuery, and a simple ax
 Although the custom hook was set for itemList-like api, it still could be easily extracted for any
 data-like api structure.
 
-Also, due to another small project I once created
-https://morsha.github.io/to-pick-one
+Also, due to another small project I once created\
+https://morsha.github.io/to-pick-one\
 its api server is still on heroku so github-page is considered instead
