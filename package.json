@@ -1,5 +1,5 @@
 {
-  "name": "dcard_assign",
+  "name": "github-infinite-scroll",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -18,11 +18,10 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "flow": "flow"
+    "start": "yarn && react-scripts start",
+    "build": "rm -rf ./build && react-scripts build && yarn replace:githubPages",
+    "replace:githubPages": "rm -rf ../morsha.github.io/github-infinite-scroll && cp -rf ./build/. ../morsha.github.io/github-infinite-scroll && yarn deploy:githubPages",
+    "deploy:githubPages": "cd ../morsha.github.io/github-infinite-scroll && git add -A && git commit -am 'build change' && git push"
   },
   "eslintConfig": {
     "extends": [
