@@ -1,0 +1,31 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Open Sans', 'PingFang TC', '微軟正黑體', sans-serif;
+}
+
+html, body {
+  padding: 0;
+  font-size: 16px;
+  margin: 0;
+  background-color: #0E1116;
+}
+
+html {
+
+}
+
+body {
+  position: relative;
+}
+
+h1, h2, h3, h4, h5, p, div {
+  margin: 0;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  outline: none;
+}
