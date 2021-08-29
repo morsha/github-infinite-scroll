@@ -5,24 +5,12 @@ import {
   useCallback,
 } from 'react';
 import qs from 'qs';
-import axios from 'axios';
 import uniqBy from 'lodash/uniqBy';
-import { FETCH_LIMIT } from '../constant';
-
-const GITHUB_API_DOMAIN = 'https://api.github.com';
-
-async function fetchGithubApi(url) {
-  try {
-    const { data } = await axios({
-      method: 'GET',
-      url: `${GITHUB_API_DOMAIN}${url}`,
-    });
-
-    return data;
-  } catch (e) {
-    throw new Error('API Failed');
-  }
-}
+import {
+  FETCH_LIMIT,
+  FETCH_RATE_LIMITS,
+} from '../constant';
+import fetchGithubApi from './fetchGithubApi';
 
 function useFetchApi(url, searchTerm) {
   const timer = useRef();
@@ -31,9 +19,18 @@ function useFetchApi(url, searchTerm) {
   const [page, setPage] = useState(0);
   const [error, setError] = useState(null);
   const [hasMore, setHasMore] = useState(true);
+  const [retrySeconds, setRetrySeconds] = useState(null);
 
-  const fetchData = useCallback(async (queryString) => {
+  const fetchData = useCallback(async (variables) => {
     try {
+      const queryString = qs.stringify({
+        q: searchTerm,
+        per_page: FETCH_LIMIT,
+        ...variables,
+      }, {
+        addQueryPrefix: true,
+      });
+
       const apiData = await fetchGithubApi(`${url}${queryString}`);
 
       if (apiData.items.length < FETCH_LIMIT) {
@@ -48,7 +45,7 @@ function useFetchApi(url, searchTerm) {
 
       return null;
     }
-  }, [url]);
+  }, [searchTerm, url]);
 
   const fetchApiFn = useCallback(async () => {
     setError(null);
@@ -57,17 +54,11 @@ function useFetchApi(url, searchTerm) {
 
     if (!searchTerm) return;
 
-    const queryString = qs.stringify({
-      q: searchTerm,
-      per_page: FETCH_LIMIT,
-      page: 1,
-    }, {
-      addQueryPrefix: true,
-    });
-
     setLoading(true);
 
-    const fetchedData = await fetchData(queryString);
+    const fetchedData = await fetchData({
+      page: 1,
+    });
 
     if (fetchedData) {
       setData(fetchedData.items);
@@ -83,17 +74,11 @@ function useFetchApi(url, searchTerm) {
 
     setError(null);
 
-    const queryString = qs.stringify({
-      q: searchTerm,
-      per_page: FETCH_LIMIT,
-      page: page + 1,
-    }, {
-      addQueryPrefix: true,
-    });
-
     setLoading(true);
 
-    const fetchedData = await fetchData(queryString);
+    const fetchedData = await fetchData({
+      page: page + 1,
+    });
 
     if (fetchedData) {
       if (fetchedData.items.length) {
@@ -111,24 +96,44 @@ function useFetchApi(url, searchTerm) {
     }
 
     setLoading(false);
-  }, [data, fetchData, hasMore, page, searchTerm]);
+  }, [data, fetchData, hasMore, page]);
+
+  const fetchResetMs = useCallback(async () => {
+    const rateData = await fetchGithubApi(FETCH_RATE_LIMITS);
+
+    if (rateData) {
+      const resetTime = rateData.resources.search.reset;
+
+      const msLeft = (resetTime * 1000) - new Date().valueOf() + 1000;
+
+      setRetrySeconds(parseInt(msLeft / 1000, 10));
+
+      timer.current = setTimeout(() => {
+        setError(null);
+        setRetrySeconds(null);
+      }, msLeft);
+    } else {
+      setRetrySeconds(60);
+
+      timer.current = setTimeout(() => {
+        setError(null);
+        setRetrySeconds(null);
+      }, 60000);
+    }
+  }, []);
 
   useEffect(() => {
     if (error) {
-      timer.current = setTimeout(() => {
-        setError(null);
-      }, 60000);
-
-      return () => {
-        clearTimeout(timer.current);
-      };
+      fetchResetMs();
     }
 
-    return () => {};
-  }, [error]);
+    return () => {
+      timer.current = null;
+    };
+  }, [error, fetchResetMs]);
 
   return [fetchApiFn, {
-    data, loading, error, hasMore, fetchMore,
+    data, loading, error, hasMore, fetchMore, retrySeconds,
   }];
 }
 

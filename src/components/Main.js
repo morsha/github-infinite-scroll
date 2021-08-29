@@ -26,6 +26,7 @@ function Main() {
     error,
     hasMore,
     fetchMore,
+    retrySeconds,
   }] = useFetchApi(FETCH_SEARCH_REPOS, searchTerm);
 
   useEffect(() => {
@@ -43,10 +44,10 @@ function Main() {
           error={error}
           loading={loading} />
       )}
-      {error ? (
+      {error && retrySeconds ? (
         <div className="placeholder">
           API limit is up, plz wait
-          <LoadingSpinner countDown={60} />
+          <LoadingSpinner countDown={retrySeconds} />
         </div>
       ) : null}
       {!hasMore ? (
