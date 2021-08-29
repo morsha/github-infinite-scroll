@@ -8,7 +8,7 @@ import Main from './components/Main';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Switch>
         <Route path="/:searchTerm">
           <Main />
