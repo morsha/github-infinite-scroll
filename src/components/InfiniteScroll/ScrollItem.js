@@ -15,9 +15,9 @@ type Props = {
 const ScrollItem = React.forwardRef(({
   itemData,
 }: Props, ref) => (
-  <div ref={ref} className="scroll-item">
+  <div ref={ref} className="infinite-scroll__item">
     <a
-      className="item-link"
+      className="infinite-scroll__item__link"
       href={`${GITHUB_DOMAIN}/${itemData.full_name}`}
       target="_blank"
       rel="noreferrer">

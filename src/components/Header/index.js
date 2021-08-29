@@ -33,7 +33,7 @@ function Header() {
     <div className="header">
       <input
         type="text"
-        className="search-input"
+        className="header__search-input"
         placeholder="Input Search Words"
         value={typed}
         onChange={(e) => {

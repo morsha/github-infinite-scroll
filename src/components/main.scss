@@ -30,7 +30,7 @@
     justify-content: center;
     align-items: center;
 
-    .search-input {
+    &__search-input {
       width: 50%;
       height: 100%;
       border: 1px solid #22262C;
@@ -53,12 +53,12 @@
     justify-content: flex-start;
     align-items: center;
 
-    .scroll-item {
+    &__item {
       width: 100%;
       padding: 20px 20px;
       border-top: 1px solid #31363C;
 
-      .item-link {
+      &__link {
         font-size: 16px;
         color: #68A3F6;
         font-weight: 400;
