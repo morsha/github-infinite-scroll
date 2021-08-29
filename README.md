@@ -11,23 +11,26 @@ In the project directory, you can run:
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### `Structure`
 
-src
-|
-|--components
-|  |
-|  |--Header
-|  |--InfiniteScroll
-|  |--LoadingSpinner
-|
-|--utils
-   |--fetchGithubApi
-   |--useFetchApi
+src\
+|\
+|--components\
+|  |\
+|  |--Header\
+|  |--InfiniteScroll\
+|  |--LoadingSpinner\
+|\
+|--utils\
+   |--fetchGithubApi\
+   |--useFetchApi\
 
-You can view the project on
+### `Demo`
+
+You can view the project on\
 https://morsha.github.io/github-infinite-scroll/
+
+### `Explanation`
 
 This project could be done with redux / redux-saga to make the data-stream and api logic
 more understandable, but due to the small structure, We chose not to. Instead, storing data
