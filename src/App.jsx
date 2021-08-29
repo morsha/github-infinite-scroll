@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  BrowserRouter,
+  HashRouter,
   Route,
   Switch,
 } from 'react-router-dom';
@@ -8,7 +8,7 @@ import Main from './components/Main';
 
 function App() {
   return (
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <HashRouter>
       <Switch>
         <Route path="/:searchTerm">
           <Main />
@@ -17,7 +17,7 @@ function App() {
           <Main />
         </Route>
       </Switch>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
