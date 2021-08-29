@@ -26,6 +26,8 @@ src
    |--fetchGithubApi
    |--useFetchApi
 
+You can view the project on
+https://morsha.github.io/github-infinite-scroll/
 
 This project could be done with redux / redux-saga to make the data-stream and api logic
 more understandable, but due to the small structure, We chose not to. Instead, storing data
@@ -43,3 +45,7 @@ time of quotas, and we calculate the seconds diff with a plus 1 second for devia
 For api, we use a custom hook mocking Apollo GraphQL's useQuery, and a simple axios get handler.
 Although the custom hook was set for itemList-like api, it still could be easily extracted for any
 data-like api structure.
+
+Also, due to another small project I once created
+https://morsha.github.io/to-pick-one
+its api server is still on heroku so github-page is considered instead
