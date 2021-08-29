@@ -16,14 +16,14 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 src\
 |\
 |--components\
-|  |\
-|  |--Header\
-|  |--InfiniteScroll\
-|  |--LoadingSpinner\
+|。。|\
+|。。|--Header\
+|。。|--InfiniteScroll\
+|。。|--LoadingSpinner\
 |\
 |--utils\
-   |--fetchGithubApi\
-   |--useFetchApi\
+。。|--fetchGithubApi\
+。。|--useFetchApi\
 
 ### `Demo`
 
