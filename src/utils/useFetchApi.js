@@ -16,10 +16,18 @@ function useFetchApi(url, searchTerm) {
   const timer = useRef();
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [error, setError] = useState(null);
   const [hasMore, setHasMore] = useState(true);
   const [retrySeconds, setRetrySeconds] = useState(null);
+
+  const initStates = useCallback(() => {
+    setData([]);
+    setPage(1);
+    setError(null);
+    setHasMore(true);
+    setRetrySeconds(null);
+  }, []);
 
   const fetchData = useCallback(async (variables) => {
     try {
@@ -48,9 +56,7 @@ function useFetchApi(url, searchTerm) {
   }, [searchTerm, url]);
 
   const fetchApiFn = useCallback(async () => {
-    setError(null);
-    setData([]);
-    setHasMore(true);
+    initStates();
 
     if (!searchTerm) return;
 
