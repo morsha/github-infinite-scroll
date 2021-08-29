@@ -49,3 +49,5 @@ For api, we use a custom hook mocking Apollo GraphQL's useQuery, and a simple ax
 Although the custom hook was set for itemList-like api, it still could be easily extracted for any
 data-like api structure.
 
+Because this app is launched on github-pages, routing may be disabled for {domain}/:searchWord for
+instant searching. However, its available on development demo.
